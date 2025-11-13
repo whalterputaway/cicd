@@ -1,5 +1,7 @@
 name: my-github-basics
-
+env:
+  APPLICATION_NAME: "flask-site"
+  DEPLOY_PACKAGE_NAME: "flask-site-file-${{ github.sha }}"
 on:
   push:
     branches:
@@ -11,6 +13,11 @@ jobs:
     steps:
     - name: print hello world from test
       run: echo "hello world from test"
+    - name: execute few commands
+      run : |
+        echo "hello world 1"
+        echo "hello world 2"
+        echo "Application name: ${{ env.APPLICATION_NAME} }"
     
 
 
@@ -19,5 +26,7 @@ jobs:
     needs: [test]
     steps:
     - name: print hello world from deploy
-      run: echo "hello world from deploy"
+      run: |
+        echo "hello world from deploy"
+        echo "Deploy package name: ${{ $DEPLOY_PACKAGE_NAME }}
     
