@@ -1,0 +1,22 @@
+name: my-github-basics
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: print hello world from test
+      run: echo "hello world from test"
+    
+
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: print hello world from deploy
+      run: echo "hello world from deploy"
+    
