@@ -56,7 +56,13 @@ jobs:
           fi
       - name: run bd tests
         run: |
-          pg_isready -h localhost -p 5432 -U ${{ secrets.POSTGRES_USER }}
+          if docker exec psgr pg_isready -U ${{ POSTGRES_USER }} > /dev/null 2>&1; then
+          echo "PostgreSQL is ready"
+          return 0
+          else
+          echo "Application database connection failed"
+          exit 1
+          fi
 
       
 
