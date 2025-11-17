@@ -39,6 +39,28 @@ jobs:
       - name: check conts
         run: docker ps -a
 
+
+  check_apps:
+    runs-on: linux
+    steps:
+      - name: run apps tests
+        run: |
+          echo "Проверка работы приложения и БД"
+          if curl -f http://127.0.0.1:3228/health then
+            echo "Web application is healthy"
+          else
+            echo "Web application health-check is failed"
+            exit 1
+          fi
+      - name: run bd tests
+        run: |
+          API_RESPONSE=$(curl -s http:127.0.0.1:${{ secrets.APP_PORT }}/api/data)
+          if [ $? -eq 0] then
+            echo "Applications database is working correct"
+          else echo "Applications database is not working"
+          exit 1
+          fi
+
       
 
   my_end:
