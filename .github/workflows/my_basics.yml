@@ -34,7 +34,7 @@ jobs:
     needs: building
     runs-on: linux
     steps:
-      - name: test flask site
+      - name: check flask site
         run: |
           echo "Проверка работы приложения"
           if curl -f http://localhost:${{ secrets.FLASK_PORT }}; 
@@ -44,7 +44,7 @@ jobs:
             echo "Web application health-check is failed"
             exit 1
           fi
-      - name: check postgres 
+      - name: check database 
         run: |
           if docker exec psgr pg_isready -U ${{ secrets.POSTGRES_USER }} > /dev/null 2>&1;
           then
@@ -53,7 +53,7 @@ jobs:
             echo "Application database connection failed"
             exit 1
           fi
-      - name: chech adminer
+      - name: check adminer
         run: |
           echo "Проверка работы СУБД"
           if curl -f http://localhost:${{ secrets.ADMINER_PORT }}; 
@@ -64,10 +64,25 @@ jobs:
             exit 1
           fi
 
+  comparison:
+    runs-on: linux
+    needs: health_check
+    steps:
+      - name: testing data consistency
+        run: |
+          DB_COUNT=$(docker exec psgr psql -U user -d mydata -c "SELECT COUNT(*) FROM your_table_name;")
+          WEB_COUNT=$(curl -s -D /dev/null https://localhost:${{ secrets.FLASK_PORT }} | wc -l)
+          if [ $DB_COUNT -eq $WEB_COUNT ];
+          then
+            echo "Data consistency test passed"
+          else
+            echo "Data consistency test failed"
+            exit 1
+          fi
       
 
   my_end:
-    needs: health_check
+    needs: comparison
     runs-on: linux
     steps:
       - name: terminate all conts
