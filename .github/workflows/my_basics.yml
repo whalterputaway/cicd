@@ -41,6 +41,7 @@ jobs:
 
 
   check_apps:
+    needs: my_test
     runs-on: linux
     steps:
       - name: run apps tests
@@ -64,7 +65,7 @@ jobs:
       
 
   my_end:
-    needs: my_test
+    needs: check_apps
     runs-on: linux
     steps:
       - name: terminate all conts
