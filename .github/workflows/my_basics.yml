@@ -47,7 +47,7 @@ jobs:
       - name: run apps tests
         run: |
           echo "Проверка работы приложения"
-          if curl -f http://localhost:3228/health; 
+          if curl -f http://localhost:3228; 
           then
             echo "Web application is healthy"
           else
