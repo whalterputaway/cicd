@@ -108,7 +108,7 @@ jobs:
       - name: upload artifact
         uses: actions/download-artifact@v4
         with:
-          path: report-file.md
+          name: report-file.md
 
       - name: Final summary
         run: |
