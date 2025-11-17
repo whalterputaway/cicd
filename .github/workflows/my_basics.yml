@@ -70,7 +70,7 @@ jobs:
     steps:
       - name: testing data consistency
         run: |
-          DB_COUNT=$(docker exec psgr psql -U ${{ secrets.POSTGRES_USER }} -d ${{ secrets.POSTGRES_DB }} -c "SELECT COUNT(*) FROM ${{ secrets.TABLE_NAME }};")
+          DB_COUNT=$(docker exec psgr psql -U user -d mydata -c "SELECT COUNT(*) FROM products;")
           WEB_COUNT=$(curl -s -D /dev/null https://localhost:${{ secrets.FLASK_PORT }} | wc -l)
           if [ $DB_COUNT -eq $WEB_COUNT ];
           then
