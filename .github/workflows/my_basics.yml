@@ -46,8 +46,8 @@ jobs:
     steps:
       - name: run apps tests
         run: |
-          echo "Проверка работы приложения и БД"
-          if curl -f http://127.0.0.1:3228/health; 
+          echo "Проверка работы приложения"
+          if curl -f http://localhost:3228/health; 
           then
             echo "Web application is healthy"
           else
@@ -56,7 +56,7 @@ jobs:
           fi
       - name: run bd tests
         run: |
-          API_RESPONSE=$(curl -s http:127.0.0.1:${{ secrets.APP_PORT }}/api/data)
+          API_RESPONSE=$(curl -s http://localhost:${{ secrets.APP_PORT }}/api/data)
           if [ $? -eq 0] then
             echo "Applications database is working correct"
           else echo "Applications database is not working"
