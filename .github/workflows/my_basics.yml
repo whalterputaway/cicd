@@ -18,8 +18,13 @@ jobs:
       - name: check conts
         run: docker ps -a
 
+      
 
+  my_end:
+    needs: my_test
+    runs-on: linux
+    steps:
+      - name: terminate all conts
+        run: docker compose down
+        
 
-
-  # my_deploy:
-  #   runs-on: Linux
