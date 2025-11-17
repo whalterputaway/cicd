@@ -30,8 +30,8 @@ jobs:
 
 
 
-  check_apps:
-    needs: my_test
+  health_check:
+    needs: building
     runs-on: linux
     steps:
       - name: test flask site
@@ -67,7 +67,7 @@ jobs:
       
 
   my_end:
-    needs: check_apps
+    needs: health_check
     runs-on: linux
     steps:
       - name: terminate all conts
