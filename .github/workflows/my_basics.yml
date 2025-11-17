@@ -102,9 +102,13 @@ jobs:
 
       - name: save artifact
         uses: actions/upload-artifact@v4
+        with:
+          path: report-file.md
  
       - name: upload artifact
         uses: actions/upload-artifact@v4
+        with:
+          path: report-file.md
 
       - name: Final summary
         run: |
