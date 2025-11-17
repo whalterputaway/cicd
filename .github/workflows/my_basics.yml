@@ -71,7 +71,7 @@ jobs:
       - name: testing data consistency
         run: |
           DB_COUNT=$(docker exec psgr psql -U user -d mydata -t -A -c "SELECT COUNT(*) FROM products;")
-          WEB_COUNT=$(curl -s http://localhost:${{ secrets.FLASK_PORT}} | grep -o '<p')
+          WEB_COUNT=$(( (curl -s http://localhost:${{ secrets.FLASK_PORT}} | grep -o '<p' | wc -l)+1 ))
           echo $DB_COUNT
           echo $WEB_COUNT
           if [ $DB_COUNT -eq $WEB_COUNT ];
