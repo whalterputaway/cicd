@@ -1,4 +1,6 @@
 on:
+  push:
+    branches: dev
   workflow_dispatch:
 
 jobs:
@@ -13,6 +15,25 @@ jobs:
     needs: my_build
     runs-on: linux
     steps:
+      - name: create .env files from secrets
+        run: |
+          cat > .env << EOF
+          POSTGRES_USER=${{ secrets.POSTGRES_USER}}
+          POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD}}
+          POSTGRES_DB=${{ secrets.POSTGRES_DB}}
+      - name: check .env
+        run: cat .env
+      - name: create env for python
+        run: |
+          cd flaskproj
+          cat > .env << EOF
+          dbname1=${{ secrets.dbname1 }}
+          user1=${{ secrets.user1 }}
+          password1=${{ secrets.password1 }}
+          host1=${{ secrets.host1 }}
+      - name: check .env
+        run: cat .env
+
       - name: compose up
         run : docker compose up -d
       - name: check conts
@@ -26,5 +47,5 @@ jobs:
     steps:
       - name: terminate all conts
         run: docker compose down
-        
+
 
