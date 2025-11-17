@@ -5,18 +5,18 @@ jobs:
   my_build:
     runs-on: linux
     steps:
-      - name: check docker
-
-        run: |
-          echo "-------------------------------------------"
-          docker -v
+      - name: copy repos resources
+        uses: actions/checkout@v3
 
 
-
-
-
-  # my_test:
-  #   runs-on: linux
+  my_test:
+    needs: my_build
+    runs-on: linux
+    steps:
+      - name: compose up
+        run : docker compose up -d
+      - name: check conts
+        run: docker ps -a
 
 
 
