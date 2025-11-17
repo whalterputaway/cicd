@@ -47,7 +47,8 @@ jobs:
       - name: run apps tests
         run: |
           echo "Проверка работы приложения и БД"
-          if curl -f http://127.0.0.1:3228/health then
+          if curl -f http://127.0.0.1:3228/health; 
+          then
             echo "Web application is healthy"
           else
             echo "Web application health-check is failed"
