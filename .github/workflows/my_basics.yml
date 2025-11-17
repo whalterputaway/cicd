@@ -13,7 +13,7 @@ on:
 
 jobs:
   test:
-    runs-on: self-hosted
+    runs-on: virtualbox-runner
     steps:
     - name: print hello world from test
       run: echo "hello world from test"
@@ -29,8 +29,7 @@ jobs:
 
 
   deploy:
-    runs-on: self-hosted
-
+    runs-on: main-runner
     needs: [test]
     steps:
     - name: print hello world from deploy
