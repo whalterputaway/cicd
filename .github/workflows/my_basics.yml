@@ -6,7 +6,10 @@ jobs:
     runs-on: linux
     steps:
       - name: check docker
-        run: docker -v
+
+        run: |
+          echo "-------------------------------------------"
+          docker -v
 
 
 
