@@ -56,12 +56,12 @@ jobs:
           fi
       - name: run bd tests
         run: |
-          if docker exec psgr pg_isready -U ${{ secrets.POSTGRES_USER }} > /dev/null 2>&1; then
-          echo "PostgreSQL is ready"
-          return 0
+          if docker exec psgr pg_isready -U ${{ secrets.POSTGRES_USER }} > /dev/null 2>&1;
+          then
+            echo "PostgreSQL is ready"
           else
-          echo "Application database connection failed"
-          exit 1
+            echo "Application database connection failed"
+            exit 1
           fi
 
       
