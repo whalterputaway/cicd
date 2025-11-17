@@ -1,39 +1,21 @@
-name: my-github-basics
-env:
-  APPLICATION_NAME: "flask-site"
-  DEPLOY_PACKAGE_NAME: "flask-site-file-${{ github.sha }}"
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-
-
-
 
 jobs:
-  test:
-    runs-on: Linux
+  my_build:
+    runs-on: linux
     steps:
-    - name: print hello world from test
-      run: echo "hello world from test"
-    - name: execute few commands
-      run : |
-        echo "HELLO TO UBUNTU FROM WINDOWS"
-        echo "hello world 1"
-        echo "hello world 2"
-        echo "Application name: ${{ env.APPLICATION_NAME}}"
-    - name: ls folder
-      run: ls
-    
+    run: docker -v
 
 
-  deploy:
-    runs-on: Windows
-    needs: [test]
-    steps:
-    - name: print hello world from deploy
-      run: |
-        echo "hello world from deploy"
-        echo "Deploy package name: ${{ env.DEPLOY_PACKAGE_NAME }}"
-    
+
+
+
+  # my_test:
+  #   runs-on: linux
+
+
+
+
+  # my_deploy:
+  #   runs-on: Linux
