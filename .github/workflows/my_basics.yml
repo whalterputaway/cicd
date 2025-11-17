@@ -44,7 +44,7 @@ jobs:
     needs: my_test
     runs-on: linux
     steps:
-      - name: run apps tests
+      - name: test flask site
         run: |
           echo "Проверка работы приложения"
           if curl -f http://localhost:${{ secrets.FLASK_PORT }}; 
@@ -54,13 +54,23 @@ jobs:
             echo "Web application health-check is failed"
             exit 1
           fi
-      - name: run bd tests
+      - name: check postgres 
         run: |
           if docker exec psgr pg_isready -U ${{ secrets.POSTGRES_USER }} > /dev/null 2>&1;
           then
             echo "PostgreSQL is ready"
           else
             echo "Application database connection failed"
+            exit 1
+          fi
+      - name: chech adminer
+        run: |
+          echo "Проверка работы СУБД"
+          if curl -f http://localhost:${{ secrets.ADMINER_PORT }}; 
+          then
+            echo "DBS application is healthy"
+          else
+            echo "DBS application health-check is failed"
             exit 1
           fi
 
