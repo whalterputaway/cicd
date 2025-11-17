@@ -47,7 +47,7 @@ jobs:
       - name: run apps tests
         run: |
           echo "Проверка работы приложения"
-          if curl -f http://localhost:3228; 
+          if curl -f http://localhost:${{ secrets.FLASK_PORT }}; 
           then
             echo "Web application is healthy"
           else
@@ -56,12 +56,7 @@ jobs:
           fi
       - name: run bd tests
         run: |
-          API_RESPONSE=$(curl -s http://localhost:${{ secrets.APP_PORT }})
-          if [ $? -eq 0] then
-            echo "Applications database is working correct"
-          else echo "Applications database is not working"
-          exit 1
-          fi
+          pg_isready -h localhost -p 5432 -U ${{ secrets.POSTGRES_USER }}
 
       
 
