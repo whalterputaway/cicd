@@ -56,7 +56,7 @@ jobs:
           fi
       - name: run bd tests
         run: |
-          API_RESPONSE=$(curl -s http://localhost:${{ secrets.APP_PORT }}/api/data)
+          API_RESPONSE=$(curl -s http://localhost:${{ secrets.APP_PORT }})
           if [ $? -eq 0] then
             echo "Applications database is working correct"
           else echo "Applications database is not working"
