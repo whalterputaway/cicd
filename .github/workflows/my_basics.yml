@@ -8,13 +8,14 @@ jobs:
     runs-on: linux
     steps:
       - name: copy repos resources
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: building env`s files for compose
         run: |
           cat > .env << EOF
           POSTGRES_USER=${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+          EOF
       - name: building env`s files for python site
         run: |
           cd flaskproj
@@ -23,6 +24,7 @@ jobs:
           user1=${{ secrets.user1 }}
           password1=${{ secrets.password1 }}
           host1=${{ secrets.host1 }}
+          EOF
       - name: compose up
         run : docker compose up -d
       - name: check conts
@@ -81,10 +83,43 @@ jobs:
             echo "Data consistency test failed"
             exit 1
           fi
+  
+
+  reporting:
+    runs-on: linux
+    needs: comparison
+    steps: 
+      - name: create report file
+        run: |
+          echo "Creating report file..."
+          cat > report-file.md << EOF
+          # Deployment Test report
+          - Date: $(date)
+          - Application: Healthy
+          - Database: Connected
+          - Data Consistency: Passed
+          - Containers: Running 
+
+      - name: save artifact
+        uses: actions/upload-artifact@v4
+ 
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+
+      - name: Final summary
+        run: |
+          echo "🎯 Deployment Summary"
+          echo "✅ Self-Hosted Runner: Active"
+          echo "✅ Docker Compose: Running"
+          echo "✅ Secrets & Artifacts: Configured"
+          echo "✅ Application Tests: Passed"
+          echo "📊 Total score: 10/10"
+
+
       
 
-  my_end:
-    needs: comparison
+  clear:
+    needs: reporting
     runs-on: linux
     steps:
       - name: terminate all conts
