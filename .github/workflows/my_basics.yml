@@ -5,7 +5,8 @@ jobs:
   my_build:
     runs-on: linux
     steps:
-    run: docker -v
+      - name: check docker
+        run: docker -v
 
 
 
