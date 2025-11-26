@@ -5,7 +5,7 @@ on:
 
 jobs:
   building:
-    runs-on: linux
+    runs-on: windows
     steps:
       - name: copy repos resources
         uses: actions/checkout@v4
@@ -34,7 +34,7 @@ jobs:
 
   health_check:
     needs: building
-    runs-on: linux
+    runs-on: windows
     steps:
       - name: check flask site
         run: |
@@ -67,7 +67,7 @@ jobs:
           fi
 
   comparison:
-    runs-on: linux
+    runs-on: windows
     needs: health_check
     steps:
       - name: testing data consistency
@@ -86,7 +86,7 @@ jobs:
   
 
   reporting:
-    runs-on: linux
+    runs-on: windows
     needs: comparison
     steps: 
       - name: create report file
@@ -125,7 +125,7 @@ jobs:
 
   clear:
     needs: reporting
-    runs-on: linux
+    runs-on: windows
     steps:
       - name: terminate all conts
         run: docker compose down
