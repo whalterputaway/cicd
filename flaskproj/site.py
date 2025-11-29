@@ -15,12 +15,12 @@ def index():
 	conn = psycopg2.connect(dbname=dbname1, user=user1,password=password1,host=host1)
 	cursor = conn.cursor()
 
-	cursor.execute('CREATE TABLE products (id int IDENTITY PRIMARY KEY, name char(30))')
+	cursor.execute('CREATE TABLE products (id SERIAL PRIMARY KEY, name VARCHAR(30))')
 	cursor.execute("INSERT INTO products (name) VALUES ('milk')")
 	cursor.execute("INSERT INTO products (name) VALUES ('bread')")
 	cursor.execute("INSERT INTO products (name) VALUES ('meat')")
 	cursor.execute("INSERT INTO products (name) VALUES ('water')")
-	cursor.execute('CREATE TABLE products (id SERIAL PRIMARY KEY, name VARCHAR(30))')
+	cursor.execute('SELECT * FROM products LIMIT 10')
 	records = cursor.fetchall()
 	
 	cursor.close()
