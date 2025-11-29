@@ -16,11 +16,11 @@ def index():
 	cursor = conn.cursor()
 
 	cursor.execute('CREATE TABLE products (id int IDENTITY PRIMARY KEY, name char(30))')
-	cursor.execute('INSERT INTO products (name) VALUES ('milk')')
-	cursor.execute('INSERT INTO products (name) VALUES ('bread')')
-	cursor.execute('INSERT INTO products (name) VALUES ('meat')')
-	cursor.execute('INSERT INTO products (name) VALUES ('water')')
-	cursor.execute('SELECT * FROM products LIMIT 10')
+	cursor.execute("INSERT INTO products (name) VALUES ('milk')")
+	cursor.execute("INSERT INTO products (name) VALUES ('bread')")
+	cursor.execute("INSERT INTO products (name) VALUES ('meat')")
+	cursor.execute("INSERT INTO products (name) VALUES ('water')")
+	cursor.execute("SELECT * FROM products LIMIT 10')
 	records = cursor.fetchall()
 	
 	cursor.close()
