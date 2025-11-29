@@ -20,7 +20,7 @@ def index():
 	cursor.execute("INSERT INTO products (name) VALUES ('bread')")
 	cursor.execute("INSERT INTO products (name) VALUES ('meat')")
 	cursor.execute("INSERT INTO products (name) VALUES ('water')")
-	cursor.execute("SELECT * FROM products LIMIT 10")
+	cursor.execute('CREATE TABLE products (id SERIAL PRIMARY KEY, name VARCHAR(30))')
 	records = cursor.fetchall()
 	
 	cursor.close()
