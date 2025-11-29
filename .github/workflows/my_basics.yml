@@ -26,7 +26,9 @@ jobs:
           host1=${{ secrets.host1 }}
           EOF
       - name: compose up
-        run : docker compose up -d
+        run : |
+          docker compose down
+          docker compose up -d --build
       - name: check conts
         run: docker ps -a
 
