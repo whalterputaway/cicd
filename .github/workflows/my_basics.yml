@@ -20,7 +20,7 @@ jobs:
         run: |
           cd flaskproj
           cat > .env << EOF
-          dbname1=${{ secrets.POSTGRES_USER }}
+          dbname1=${{ secrets.dbname1 }}
           user1=${{ secrets.user1 }}
           password1=${{ secrets.password1 }}
           host1=${{ secrets.host1 }}
