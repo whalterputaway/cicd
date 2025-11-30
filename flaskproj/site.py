@@ -14,7 +14,7 @@ app = Flask(__name__)
 def index():
 	conn = psycopg2.connect(dbname=dbname1, user=user1,password=password1,host=host1)
 	cursor = conn.cursor()
-
+	cursor.execute(f'USE {dbname1}')
 	cursor.execute('CREATE TABLE products (id SERIAL PRIMARY KEY, name VARCHAR(30))')
 	cursor.execute("INSERT INTO products (name) VALUES ('milk')")
 	cursor.execute("INSERT INTO products (name) VALUES ('bread')")
