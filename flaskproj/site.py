@@ -14,11 +14,6 @@ app = Flask(__name__)
 def index():
 	conn = psycopg2.connect(dbname=dbname1, user=user1,password=password1,host=host1)
 	cursor = conn.cursor()
-	cursor.execute('CREATE TABLE IF NOT EXISTS products (id SERIAL PRIMARY KEY, name VARCHAR(30))')
-	cursor.execute("INSERT INTO products (name) VALUES ('milk')")
-	cursor.execute("INSERT INTO products (name) VALUES ('bread')")
-	cursor.execute("INSERT INTO products (name) VALUES ('meat')")
-	cursor.execute("INSERT INTO products (name) VALUES ('water')")
 	cursor.execute('SELECT * FROM products LIMIT 10')
 	records = cursor.fetchall()
 	
